@@ -9,7 +9,6 @@
 	import Modal from "./components/Modal.vue";
 	import Js from "./components/Js.vue";
 
-
 </script>
 
 <template>
