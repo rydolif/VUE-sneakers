@@ -13,7 +13,6 @@
 	})
 </script>
 
-
 <template>
 
 	<div class="cards__item">

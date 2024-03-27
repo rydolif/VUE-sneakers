@@ -1,7 +1,4 @@
 <script setup>
-	import { onMounted, ref, watch } from "vue";
-	import axios from 'axios';
-
 	import Header from "./components/Header.vue";
 	import Hero from "./components/Hero.vue";
 	import CardList from "./components/CardList.vue";

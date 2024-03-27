@@ -3,9 +3,11 @@
 	import axios from 'axios';
 
 	import CardItem from './CardItem.vue'
+	import Tabs from './Tabs.vue'
+	import Search from './Search.vue'
 
 	const items = ref([]);
-	const searchQuery = ref('');
+	const searchQuery = ref('')
 	const filterQuery = ref('');
 	const filterBrendQuery = ref('');
 
@@ -70,32 +72,13 @@
 	<div class="cards">
 		<div class="container">
 
-			<div class="cards__search question__form">
-				<div class="question__form_line">
-					<input v-model="searchQuery" type="text" placeholder="Search" />
-				</div>
-			</div>
+			<Search :searchQuery="searchQuery" @update:searchQuery="searchQuery = $event" />
 
-			<div class="cards__filters">
-				<div class="catalog__tabs">
-					<ul>
-						<li><a @click="setFilter('', '')" :class="{ active: filterQuery === '' && filterBrendQuery === '' }">All</a></li>
-						<li><a @click="setFilter('-price', '')" :class="{ active: filterQuery === '-price' && filterBrendQuery === '' }">Dear</a></li>
-						<li><a @click="setFilter('price', '')" :class="{ active: filterQuery === 'price' && filterBrendQuery === '' }">Cheap</a></li>
-						<li><a @click="setFilter('sale', '')" :class="{ active: filterQuery === 'sale' && filterBrendQuery === '' }">Sale</a></li>
-					</ul>
-				</div>
-
-				<div class="catalog__tabs">
-					<ul>
-						<li><a @click="setFilter('', 'Puma')" :class="{ active: filterBrendQuery === 'Puma' && filterQuery === '' }">Puma</a></li>
-						<li><a @click="setFilter('', 'Nike')" :class="{ active: filterBrendQuery === 'Nike' && filterQuery === '' }">Nike</a></li>
-						<li><a @click="setFilter('', 'New Balance')" :class="{ active: filterBrendQuery === 'New Balance' && filterQuery === '' }">New Balance</a></li>
-						<li><a @click="setFilter('', 'Adidas')" :class="{ active: filterBrendQuery === 'Adidas' && filterQuery === '' }">Adidas</a></li>
-						<li><a @click="setFilter('', 'Converse')" :class="{ active: filterBrendQuery === 'Converse' && filterQuery === '' }">Converse</a></li>
-					</ul>
-				</div>
-			</div>
+			<Tabs
+				:setFilter='setFilter'
+				:filterQuery='filterQuery'
+				:filterBrendQuery='filterBrendQuery'
+			/>
 
 			<div class="cards__list cards__slider--three-block">
 				<CardItem 
