@@ -14,7 +14,7 @@
 
 		<Hero></Hero>
 
-		<CardList ></CardList>
+		<CardList></CardList>
 
 		<Drawer></Drawer>
 
