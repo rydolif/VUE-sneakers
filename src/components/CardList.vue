@@ -1,5 +1,5 @@
 <script setup>
-	import { onMounted, ref, watch, } from "vue";
+	import { onMounted, ref, watch, provide } from "vue";
 	import axios from 'axios';
 
 	import CardItem from './CardItem.vue'
@@ -11,15 +11,17 @@
 	const filterQuery = ref('');
 	const filterBrendQuery = ref('');
 
-	const onClickAdd = (e) => {
-		e.preventDefault();
-		alert('Добавити');
-	}
-
 	const fetchData = async (url) => {
 		try {
 			const { data } = await axios.get(url);
 			items.value = data;
+			
+			items.value = data.map(obj => ({
+				...obj,
+				isAdded: false,
+				isFavorite: false
+			}))
+			
 		} catch (err) {
 			console.log(err);
 		}
@@ -50,8 +52,49 @@
 		return url;
 	};
 
+	const fetchFavorites = async () => {
+		try {
+			const { data: favorites } = await axios.get('https://d2420e17532c114f.mokky.dev/Favorite');
+
+			items.value = items.value.map(item => {
+				const favorite = favorites.find(favorite => favorite.parentId === item.id)
+				if(!favorite) {
+					return item;
+				}
+
+				return {
+					...item,
+					isFavorite: true,
+					favoriteId: favorite.id,
+				}
+			})
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const addToFavorite = async (item) => {
+		try {
+			if(!item.isFavorite){
+				const obj = {
+					parentId: item.id
+				}
+				const { data } = await axios.post('https://d2420e17532c114f.mokky.dev/Favorite', obj);
+				item.isFavorite = true
+				item.favoriteId = data.id
+			} else {
+				await axios.delete(`https://d2420e17532c114f.mokky.dev/Favorite/${item.favoriteId}`);
+				item.isFavorite = false
+				item.favoriteId = null
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	onMounted(() => {
 		fetchData(buildUrl());
+		fetchFavorites();
 	});
 
 	watch(searchQuery, () => {
@@ -66,6 +109,7 @@
 		setFilter(filterQuery.value, filterBrendQuery.value);
 	});
 
+	provide('addToFavorite', addToFavorite)
 </script>
 
 <template>
@@ -84,16 +128,16 @@
 				<CardItem 
 					v-for="item in items"
 					:key="item.id"
+					:id="item.id"
 					:title="item.title"
 					:imgUrl="item.imgUrl"
 					:price="item.price"
 					:sale="item.sale"
 					:brend="item.brend"
 					:desc="item.desc"
-					:isAdded="false"
-					:isFavorite="true"
-					:onClickAdded="onClickAdd"
-					:onClickFavorite="onClickAdd"
+					:onClickFavorite="() => addToFavorite(item)"
+					:isFavorite="item.isFavorite"
+					@addToFavorite="addToFavorite"
 					/>
 			</div>
 

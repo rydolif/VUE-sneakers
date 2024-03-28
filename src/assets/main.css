@@ -2679,6 +2679,7 @@ button {
   -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
 	transition: all .3s;
+	cursor: pointer;
 }
 .header__info_btn svg {
 	transition: all .3s;
@@ -5638,6 +5639,7 @@ button {
 	height: 30px;
 	background-color: var(--accent);
 	border-radius: 50%;
+	cursor: pointer;
 }
 .drawer__arrow svg {
 	transition: all .3s;

@@ -1,4 +1,5 @@
 <script setup>
+	import { onMounted, ref, watch, provide } from "vue";
 	import Header from "./components/Header.vue";
 	import Hero from "./components/Hero.vue";
 	import CardList from "./components/CardList.vue";
@@ -6,17 +7,39 @@
 	// import Modal from "./components/Modal.vue";
 	import Js from "./components/Js.vue";
 
+	const drawerOpen = ref(false)
+
+	const closeDrawer = () =>{
+		setTimeout(() => {
+			drawerOpen.value = false
+		}, 1000)
+		const drawer  = document.querySelector('.drawer')
+		drawer.classList.remove('drawer--active')
+	}
+	const openDrawer = () =>{
+		drawerOpen.value = true
+		setTimeout(() => {
+			const drawer  = document.querySelector('.drawer')
+			drawer.classList.add('drawer--active')
+		}, 100)
+	}
+
+	provide('cartActions', {
+		closeDrawer,
+		openDrawer
+	})
+
 </script>
 
 <template>
 	<div class="accent--red">
-		<Header></Header>
+		<Header @openDrawer="openDrawer"/>
 
-		<Hero></Hero>
+		<Hero/>
 
-		<CardList></CardList>
+		<CardList/>
 
-		<Drawer></Drawer>
+		<Drawer v-if="drawerOpen" />
 
 		<!-- <div class="developments bg--dark">
 			<div class="container">

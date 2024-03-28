@@ -1,5 +1,6 @@
 <script setup>
-	defineProps({
+	const probs = defineProps({
+		id: Number,
 		title: String,
 		desc: String,
 		brend: String,
@@ -7,8 +8,8 @@
 		price: String,
 		sale: String,
 		isFavorite: Boolean,
-		onClickFavorite: Function,
 		isAdded: Boolean,
+		onClickFavorite: Function,
 		onClickAdded: Function,
 	})
 </script>
