@@ -1,5 +1,5 @@
 <script setup>
-	const probs = defineProps({
+	defineProps({
 		id: Number,
 		title: String,
 		desc: String,
@@ -42,20 +42,12 @@
 			<p class="cards__item_name">{{ title }}</p>
 			<p class="cards__item_brand">{{ brend }}</p>
 			<p class="cards__item_text">{{ desc }}</p>
-			<p class="cards__item_price">
+			<div class="cards__item_price">
 				<span class="cards__item_price--old">{{ price }} $</span>
 				<span class="cards__item_price--sale">{{ sale }} $</span>
-				<a 
-					v-if="!isAdded"
-					@click="onClickAdded"
-					href="#" 
-					class="cards__item_btn">Add to cart</a>
-				<a 
-					v-else 
-					href="#" 
-					@click="onClickAdded" 
-					class="cards__item_btn">Add</a>
-			</p>
+				<div v-if="!isAdded" @click="onClickAdded" class="cards__item_btn">Add to cart</div>
+				<div v-else @click="onClickAdded" class="cards__item_btn">Added!</div>
+			</div>
 		</div>
 	</div>
 

@@ -1,12 +1,14 @@
 <script setup>
-import { inject } from "vue";
+	import { inject } from "vue";
+	import DrawerList from "./DrawerList.vue";
 
-	const {closeDrawer} = inject('cartActions')
+	const {closeDrawer} = inject('cart')
 </script>
 
 <template>
 	<div class="drawer">
-		<div class="drawer__wrap">
+		<div class="drawer__after" @click="closeDrawer"></div>
+		<div class="drawer__wrap" >
 
 			<div class="drawer__title">
 				<div class="drawer__arrow" @click="closeDrawer">
@@ -17,73 +19,7 @@ import { inject } from "vue";
 				<h2 class="drawer__h2">Basket of goods</h2>
 			</div>
 
-			<div class="drawer__list">
-
-				<div class="drawer__item">
-					<button class="drawer__close">
-						<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#fff"/></svg>
-					</button>
-					<img src="../assets/img/cards1.jpg" class="drawer__img" alt="">
-					<div class="drawer__item_content">
-						<p class="cards__item_name">Adidas top</p>
-						<p class="cards__item_brand">Adidas</p>
-						<p class="cards__item_text">A very stylish option for morning runs...</p>
-						<div class="drawer__item_price">
-							<span class="cards__item_price--old">123123 $</span>
-							<span class="cards__item_price--sale">123123 $</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="drawer__item">
-					<button class="drawer__close">
-						<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#fff"/></svg>
-					</button>
-					<img src="../assets/img/cards1.jpg" class="drawer__img" alt="">
-					<div class="drawer__item_content">
-						<p class="cards__item_name">Adidas top</p>
-						<p class="cards__item_brand">Adidas</p>
-						<p class="cards__item_text">A very stylish option for morning runs...</p>
-						<div class="drawer__item_price">
-							<span class="cards__item_price--old">123123 $</span>
-							<span class="cards__item_price--sale">123123 $</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="drawer__item">
-					<button class="drawer__close">
-						<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#fff"/></svg>
-					</button>
-					<img src="../assets/img/cards1.jpg" class="drawer__img" alt="">
-					<div class="drawer__item_content">
-						<p class="cards__item_name">Adidas top</p>
-						<p class="cards__item_brand">Adidas</p>
-						<p class="cards__item_text">A very stylish option for morning runs...</p>
-						<div class="drawer__item_price">
-							<span class="cards__item_price--old">123123 $</span>
-							<span class="cards__item_price--sale">123123 $</span>
-						</div>
-					</div>
-				</div>
-				
-				<div class="drawer__item">
-					<button class="drawer__close">
-						<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#fff"/></svg>
-					</button>
-					<img src="../assets/img/cards1.jpg" class="drawer__img" alt="">
-					<div class="drawer__item_content">
-						<p class="cards__item_name">Adidas top</p>
-						<p class="cards__item_brand">Adidas</p>
-						<p class="cards__item_text">A very stylish option for morning runs...</p>
-						<div class="drawer__item_price">
-							<span class="cards__item_price--old">123123 $</span>
-							<span class="cards__item_price--sale">123123 $</span>
-						</div>
-					</div>
-				</div>
-
-			</div>
+			<DrawerList/>
 
 			<div class="drawer__footer">
 				<p><b>Total price: 123123</b></p>

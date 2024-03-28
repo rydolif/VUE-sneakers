@@ -1,5 +1,5 @@
 <script setup>
-	import { onMounted, ref, watch, provide } from "vue";
+	import { onMounted, ref, watch, provide, defineEmits } from "vue";
 	import axios from 'axios';
 
 	import CardItem from './CardItem.vue'
@@ -7,21 +7,21 @@
 	import Search from './Search.vue'
 
 	const items = ref([]);
-	const searchQuery = ref('')
+	const searchQuery = ref('');
 	const filterQuery = ref('');
 	const filterBrendQuery = ref('');
+	const isDataLoaded = ref(false);
 
 	const fetchData = async (url) => {
 		try {
 			const { data } = await axios.get(url);
-			items.value = data;
-			
 			items.value = data.map(obj => ({
 				...obj,
 				isAdded: false,
 				isFavorite: false
-			}))
-			
+			}));
+			fetchFavorites();
+			isDataLoaded.value = true;
 		} catch (err) {
 			console.log(err);
 		}
@@ -31,6 +31,7 @@
 		filterQuery.value = query;
 		filterBrendQuery.value = brend;
 		fetchData(buildUrl());
+		fetchFavorites();
 	};
 
 	const buildUrl = () => {
@@ -94,7 +95,6 @@
 
 	onMounted(() => {
 		fetchData(buildUrl());
-		fetchFavorites();
 	});
 
 	watch(searchQuery, () => {
@@ -110,7 +110,9 @@
 	});
 
 	provide('addToFavorite', addToFavorite)
+	const emit = defineEmits('addToCart')
 </script>
+
 
 <template>
 	<div class="cards">
@@ -137,8 +139,9 @@
 					:desc="item.desc"
 					:onClickFavorite="() => addToFavorite(item)"
 					:isFavorite="item.isFavorite"
-					@addToFavorite="addToFavorite"
-					/>
+					:onClickAdded="() => emit('addToCart', item)"
+					:isAdded="item.isAdded"
+				/>
 			</div>
 
 		</div>

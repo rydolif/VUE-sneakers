@@ -2680,6 +2680,7 @@ button {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
 	transition: all .3s;
 	cursor: pointer;
+	position: relative;
 }
 .header__info_btn svg {
 	transition: all .3s;
@@ -2689,6 +2690,23 @@ button {
 }
 .header__info_btn:active svg {
 	transform: scale(1.05);
+}
+.header__info_btn span {
+	position: absolute;
+	top: -9px;
+	right: -9px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 18px;
+	height: 18px;
+	background-color: #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+	font-size: 10px;
+	line-height: 1;
+	font-weight: 700;
+	color: #000;
 }
 .header__nav {
   font-size: 18px;
@@ -5594,11 +5612,21 @@ button {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: rgba(0,0,0, .6);
 	z-index: 1000;
 	visibility: hidden;
 	opacity: 0;
 	transition: all .6s;
+}
+
+.drawer__after {
+	background-color: rgba(0,0,0, .6);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+
 }
 
 .drawer--active {

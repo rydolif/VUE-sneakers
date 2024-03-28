@@ -1,5 +1,5 @@
 <script setup>
-	import { onMounted, ref, watch, provide } from "vue";
+	import { onMounted, ref, watch, provide, computed } from "vue";
 	import Header from "./components/Header.vue";
 	import Hero from "./components/Hero.vue";
 	import CardList from "./components/CardList.vue";
@@ -7,8 +7,30 @@
 	// import Modal from "./components/Modal.vue";
 	import Js from "./components/Js.vue";
 
-	const drawerOpen = ref(false)
+	//---------------------------add + remove cart item--------------------------------
+	const cart = ref([]);
+	const addToCart = (item) => {
+		cart.value.push(item)
+		item.isAdded = true
+	}
 
+	const removeFromCart = (item) => {
+		cart.value.splice(cart.value.indexOf(item), 1)
+		item.isAdded = false
+	}
+
+	const onClickAddCart = (item) => {
+		if(!item.isAdded) {
+			addToCart(item)
+		} else {
+			removeFromCart(item)
+		}
+	}
+
+	const cartItemsNumber = computed(() => cart.value.length);
+
+	//---------------------------drawerOpen--------------------------------
+	const drawerOpen = ref(false)
 	const closeDrawer = () =>{
 		setTimeout(() => {
 			drawerOpen.value = false
@@ -16,6 +38,7 @@
 		const drawer  = document.querySelector('.drawer')
 		drawer.classList.remove('drawer--active')
 	}
+
 	const openDrawer = () =>{
 		drawerOpen.value = true
 		setTimeout(() => {
@@ -24,20 +47,23 @@
 		}, 100)
 	}
 
-	provide('cartActions', {
+	provide('cart', {
+		cart,
 		closeDrawer,
-		openDrawer
+		openDrawer,
+		addToCart,
+		removeFromCart
 	})
 
 </script>
 
 <template>
 	<div class="accent--red">
-		<Header @openDrawer="openDrawer"/>
+		<Header :cartItemsNumber="cartItemsNumber" @openDrawer="openDrawer"/>
 
 		<Hero/>
 
-		<CardList/>
+		<CardList @addToCart="onClickAddCart"/>
 
 		<Drawer v-if="drawerOpen" />
 
