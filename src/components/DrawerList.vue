@@ -6,6 +6,7 @@
 
 </script>
 <template>
+
 	<div class="drawer__list">
 		<DrawerItem 
 			v-for="item in cart"

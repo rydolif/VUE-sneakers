@@ -24,8 +24,9 @@
 			<p class="cards__item_brand">{{ brend }}</p>
 			<p class="cards__item_text">{{ desc }}</p>
 			<div class="drawer__item_price">
-				<span class="cards__item_price--old">{{ price }} $</span>
-				<span class="cards__item_price--sale">{{ sale }} $</span>
+				<span class="cards__item_price--old" v-if="sale">{{ price }}$</span>
+				<span class="cards__item_price--sale" v-else>{{ price }}$</span>
+				<span class="cards__item_price--sale" v-if="sale">{{ sale }}$</span>
 			</div>
 		</div>
 	</div>

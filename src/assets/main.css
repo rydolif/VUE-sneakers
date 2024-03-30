@@ -1768,6 +1768,18 @@ svg {
   white-space: nowrap;
   line-height: 1.2;
 }
+.btn:disabled {
+	background-color: #fff;
+	color: #9d9d9d;
+	border: 1px solid #9d9d9d;
+}
+.btn:disabled:hover,
+.btn:disabled:active {
+	transform: translate(0, 0);
+	background-color: #fff;
+	color: #9d9d9d;
+	border: 1px solid #9d9d9d;
+}
 .btn:hover,
 .cards__item_btn:hover {
   border: 1px solid var(--accent--hover);
@@ -5685,6 +5697,17 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+	height: calc(100% - 120px);
+	overflow: auto;
+	border-bottom: 1px solid #9d9d9d;
+}
+
+.drawer__empty {
+	padding-top: 25px;
+	padding-bottom: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: calc(100% - 120px);
 	overflow: auto;
 	border-bottom: 1px solid #9d9d9d;

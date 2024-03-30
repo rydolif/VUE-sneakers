@@ -1,11 +1,14 @@
 <script setup>
 	import { onMounted, ref, watch, provide, computed } from "vue";
+	import axios from 'axios';
+
 	import Header from "./components/Header.vue";
 	import Hero from "./components/Hero.vue";
 	import CardList from "./components/CardList.vue";
 	import Drawer from "./components/Drawer.vue";
 	// import Modal from "./components/Modal.vue";
 	import Js from "./components/Js.vue";
+
 
 	//---------------------------add + remove cart item--------------------------------
 	const cart = ref([]);
@@ -28,6 +31,30 @@
 	}
 
 	const cartItemsNumber = computed(() => cart.value.length);
+
+	const cartTotalPrice = computed(() => {
+		return cart.value.reduce((acc, item) => {
+			if (item.sale) {
+				return acc + parseFloat(item.sale)
+			} else {
+				return acc + parseFloat(item.price)
+			}
+		}, 0);
+	});
+	
+	//---------------------------push server cart item--------------------------------
+	const createOrder = async () => {
+		try {
+			const { data } = await axios.post('https://d2420e17532c114f.mokky.dev/Orders', {
+				items: cart.value,
+				cartTotalPrice: cartTotalPrice.value
+			});
+			cart.value = []
+			return data
+		} catch (arr) {
+			console.log(arr)
+		}
+	}
 
 	//---------------------------drawerOpen--------------------------------
 	const drawerOpen = ref(false)
@@ -65,7 +92,7 @@
 
 		<CardList @addToCart="onClickAddCart"/>
 
-		<Drawer v-if="drawerOpen" />
+		<Drawer v-if="drawerOpen" :cartTotalPrice="cartTotalPrice" @createOrder="createOrder"/>
 
 		<!-- <div class="developments bg--dark">
 			<div class="container">
