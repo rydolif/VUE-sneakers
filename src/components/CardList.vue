@@ -1,5 +1,5 @@
 <script setup>
-	import { onMounted, ref, watch, provide, defineEmits } from "vue";
+	import { onMounted, ref, watch, provide } from "vue";
 	import axios from 'axios';
 
 	import CardItem from './CardItem.vue'

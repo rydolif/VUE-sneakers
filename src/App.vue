@@ -7,7 +7,7 @@
 	import CardList from "./components/CardList.vue";
 	import Drawer from "./components/Drawer.vue";
 	// import Modal from "./components/Modal.vue";
-	import Js from "./components/Js.vue";
+	// import Js from "./components/Js.vue";
 
 
 	//---------------------------add + remove cart item--------------------------------
